@@ -9,7 +9,7 @@ var Var = {
 global.Var = Var
 
 test('div', async () => {
-  const input = `export const App = () => <div></div>`
+  const input = `export const App = () => <div style="color: red">test</div>`
   const output = parser(input)
   const file = 'dist/ssr-div.js'
   
@@ -18,7 +18,7 @@ test('div', async () => {
   const { App } = (await import('../' + file))
   const result = ssr(App())
   
-  expect(result).toEqual('<div></div>')
+  expect(result).toEqual('<div style="color: red">test</div>')
   fs.rmSync(file)
 })
 
@@ -38,8 +38,8 @@ test('hr', async () => {
 
 test('component', async () => {
   const input = `
-    const Component = () => <div></div>
-    export const App = () => <Component title="test" />
+    const Component = ({ color }) => <div style="color: red"></div>
+    export const App = () => <Component color="red" />
   `
   const output = parser(input)
   const file = 'dist/ssr-component.js'
@@ -48,6 +48,6 @@ test('component', async () => {
   
   const { App } = (await import('../' + file))
   const result = ssr(App())
-  expect(result).toEqual('<div></div>')
+  expect(result).toEqual('<div style="color: red"></div>')
   fs.rmSync(file)
 })
