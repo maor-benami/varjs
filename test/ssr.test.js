@@ -2,11 +2,6 @@ import fs from 'fs'
 import parser from '../lib/parser/parser.js'
 import ssr from '../lib/ssr/ssr.js'
 
-var Var = {
-  fc: (func, props) => func(props)
-}
-
-global.Var = Var
 
 async function testJsx(input, output, file, expectation) {
   fs.writeFileSync(file, output, 'utf8')
@@ -38,12 +33,29 @@ test('hr', async () => {
 
 test('component', async () => {
   const input = `
-    const Component = ({ color }) => <div style="color: red"></div>
-    export const App = () => <Component color="red" />
+    const Component = ({ children }) => <div style="color: red"><span>{1}{'2'}</span>{(children)}<Component2 /></div>
+    const Component2 = ({ context }) => {
+      console.log(context)
+      return (
+        <div style="color: blue"><span>3</span></div>
+      )
+    }
+    export const App = () => {
+        return (
+        <div>
+          <Component color="red" context={{
+            title: 'context'
+          }}>
+            <div>test</div>
+          </Component>
+        </div>
+)
+    }
   `
   const output = parser(input)
   const file = 'dist/ssr-component.js'
-  const expectation = `<div style="color: red"></div>`
+  
+  const expectation = `<div style="color: red"><span>1<!---->2</span><div>test</div><!----><div style="color: blue"><span>3</span></div></div>`
   
   return testJsx(input, output, file, expectation)
 })

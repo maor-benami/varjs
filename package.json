@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "nodemon server/server.js",
     "test": "node --experimental-vm-modules --no-warnings ./node_modules/jest/bin/jest.js"
   },
   "repository": {
@@ -20,8 +21,10 @@
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "astring": "^1.8.1",
+    "html-minifier": "^4.0.0",
     "jest": "^27.4.7",
     "jsdom": "^19.0.0",
-    "meriyah": "^4.2.0"
+    "meriyah": "^4.2.0",
+    "ws": "^8.4.2"
   }
 }
