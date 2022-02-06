@@ -1,7 +1,7 @@
 var store = {
   flag: false,
   color: 'red',
-  items1: [],
+  items1: [1, 2, 3, 4],
   items2: [],
 }
 
@@ -29,7 +29,7 @@ const Component2 = (props) => {
     }, 200))
   }
   return (
-    <div onBeforeMount={(beforeMount)} style={() => `color: ${store.color}`}>
+    <div onBeforeMount={(beforeMount)} style={`color: ${store.color}`}>
       <pre>{props?.context?.title}</pre>
       <span>{store.items2.join(', ')}</span>
     </div>
@@ -53,17 +53,25 @@ const App = () => {
     store.flag = !store.flag
   }
   
+  function mutate () {
+    store.items1 = [4,3,2,1]
+  }
+  
   return (
     <div>
-      <button onClick={toggle}>TOGGLE</button>
+      <button onClick={(mutate)}>MUTATE</button>
+      {/*<button onClick={toggle}>TOGGLE</button>
       <hr/>
-      {() => store.flag && <button onClick={add}>ADD</button>}
+      <button onClick={add}>ADD</button>
       <button onClick={remove}>REMOVE</button>
-      {/*<div style={'color: red'}>{1}</div>*/}
-      {/*<pre>*/}
-      {/*  <pre style={'color: blue'} onClick={() => console.log(77)}>{2}</pre>*/}
-      {/*</pre>*/}
-      <Component/>
+      <Component/>*/}
+      <ul>
+        {store.items1.map(item => {
+          return (
+            <li key={(item)}>{item}</li>
+          )
+        })}
+      </ul>
     </div>
   )
 }

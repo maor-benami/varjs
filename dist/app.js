@@ -1,7 +1,7 @@
 var store = Var.observable({
   flag: false,
   color: "red",
-  items1: [],
+  items1: [1, 2, 3, 4],
   items2: []
 });
 const Component = props => {
@@ -38,8 +38,11 @@ const App = () => {
   function toggle() {
     store.flag = !store.flag;
   }
-  return [["<div", ">", "<button", ">", "TOGGLE", "</button>", "<hr", " />", "", "<button", ">", "REMOVE", "</button>", "", "</div>"], [[() => store.flag && [["<button", ">", "ADD", "</button>"], null, null, [["click", add, [0]]]], [0, 2]], [Var.fc(Component, {
-    "children": []
-  }), [0, 4]]], null, [["click", toggle, [0, 0]], ["click", remove, [0, 3]]]];
+  function mutate() {
+    store.items1 = [4, 3, 2, 1];
+  }
+  return [["<div", ">", "<button", ">", "MUTATE", "</button>", "<ul", ">", "", "</ul>", "</div>"], [[() => store.items1.map(item => {
+    return [["<li", " ", ">", "", "</li>"], [[() => item, [0, 0]]], [["key", () => item, [0]]], null];
+  }), [0, 1, 0]]], null, [["click", mutate, [0, 0]]]];
 };
 export default App;
