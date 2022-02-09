@@ -1,3 +1,5 @@
+import { batch } from '../lib/csr/oberverable.js'
+
 export function Link (props) {
   const onClick = (e) => {
     e.preventDefault()
@@ -12,23 +14,48 @@ export function Link (props) {
   )
 }
 
-export function Route (props) {
-  return () => {
-    let routerPath = props.context.router.pathname.split('/').slice(1)
-    let routePath = props.path.split('/').slice(1)
-    let inRoute = true
+function collectParam (routeChunk, routerChunk, params, routeParams) {
+  let param = routeChunk.slice(1)
 
-    for (let i = 0; i < routerPath.length; i++) {
-      let routerChunk = routerPath[i]
-      let routeChunk = routePath[i]
+  if (routeParams[param] !== routerChunk) {
+    params.push(() => {
+      routeParams[param] = routerChunk
+    })
+  }
+}
 
-      if (routerChunk !== routeChunk) {
-        inRoute = false
-        break;
+function inRoute ({ path }, context) {
+  let routerPath = context.router.pathname.split('/').slice(1)
+  let routePath = path.split('/').slice(1)
+  let length = Math.max(routerPath.length, routePath.length)
+  let result = true
+  let params = []
+
+  for (let i = 0; i < length; i++) {
+    let routerChunk = routerPath[i]
+    let routeChunk = routePath[i]
+
+
+    if (routeChunk?.startsWith(':')) {
+      collectParam(routeChunk, routerChunk, params, context.router.routeParams)
+    } else {
+      if (routeChunk != null) {
+        if (routerChunk !== routeChunk) {
+          result = false
+          break
+        }
       }
     }
+  }
 
-    if (inRoute) {
+  batch(params)
+
+  return result
+}
+
+export function Route (props, context) {
+  return () => {
+    if (inRoute(props, context)) {
       return (
         <div key={props.path}>{(props.children)}</div>
       )

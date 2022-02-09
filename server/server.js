@@ -10,7 +10,9 @@ new DevServer({
   port: 8000,
   middleware: async function (req, res) {
     const Module = (await (import('../dist/home.js'))).default
-    SSRMiddleware(req, res, Module)
+    SSRMiddleware(req, res, Module, {
+      title: 'context'
+    })
     FileMiddleware(req, res)
   },
 })
