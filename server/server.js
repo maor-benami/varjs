@@ -9,7 +9,8 @@ import jsxParser from '../lib/parser/parser.js'
 new DevServer({
   port: 8000,
   middleware: async function (req, res) {
-    SSRMiddleware(req, res, import('../dist/home.js'))
+    const Module = (await (import('../dist/home.js'))).default
+    SSRMiddleware(req, res, Module)
     FileMiddleware(req, res)
   },
 })

@@ -1,3 +1,4 @@
+import {Link, Route} from "./router.js";
 var store = Var.observable({
   flag: false,
   color: "red",
@@ -24,7 +25,7 @@ const Component2 = props => {
   };
   return [["<div", " ", ">", "<pre", ">", "", "</pre>", "<span", ">", "", "</span>", "</div>"], [[() => props?.context?.title, [0, 0, 0]], [() => store.items2.join(", "), [0, 1, 0]]], [["style", () => `color: ${store.color}`, [0]]], [["beforemount", beforeMount, [0]]]];
 };
-const App = () => {
+const App = props => {
   function add() {
     store.color = store.color === "red" ? "blue" : "red";
     store.items1.push(store.items1.length + 1);
@@ -41,8 +42,8 @@ const App = () => {
   function mutate() {
     store.items1 = [4, 3, 2, 1];
   }
-  return [["<div", ">", "<button", ">", "MUTATE", "</button>", "<ul", ">", "", "</ul>", "</div>"], [[() => store.items1.map(item => {
+  return [["<div", ">", "<ul", ">", "", "</ul>", "</div>"], [[() => store.items1.map(item => {
     return [["<li", " ", ">", "", "</li>"], [[() => item, [0, 0]]], [["key", () => item, [0]]], null];
-  }), [0, 1, 0]]], null, [["click", mutate, [0, 0]]]];
+  }), [0, 0, 0]]], null, null];
 };
 export default App;

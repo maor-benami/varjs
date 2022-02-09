@@ -14,9 +14,10 @@ isomorphic jsx framework
 - [x] jsx components
 - [x] context
 - [x] ssr
-- [ ] map
+- [x] map
 - [ ] router
 - [ ] hydration
+- [ ] portals
 - [ ] fragments
 
 ## syntax

@@ -1,8 +1,9 @@
-import csr from "/lib/csr/csr.js";
+import csr, {createRouter} from "/lib/csr/csr.js";
 import App from "./app.js";
-csr(Var.fc(App, {
+csr(() => Var.fc(App, {
   "children": [],
   "context": {
-    title: "context"
+    title: "context",
+    router: createRouter()
   }
 }));

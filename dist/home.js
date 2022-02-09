@@ -1,9 +1,9 @@
 import App from "./app.js";
-export default function Home() {
+export default function Home(props) {
+  console.log({
+    props
+  });
   return [["<html", " lang=\"en\"", ">", "<head", ">", "<script", " src=\"/app/dev-client.js\"", ">", "</script>", "</head>", "<body", ">", "", "</body>", "</html>"], [[Var.fc(App, {
-    "children": [],
-    "context": {
-      title: "context"
-    }
-  }), [0]]], null, null];
+    "children": []
+  }), [0, 1, 0]]], null, null];
 }
