@@ -8,14 +8,8 @@ var store = {
 }
 
 const Component = (props, context) => {
-  const beforeMount = () => {
-    return new Promise(resolve => setTimeout(() => {
-      store.items1 = [1, 2, 3]
-      resolve()
-    }, 200))
-  }
   return (
-    <div onBeforeMount={(beforeMount)}>
+    <div>
       <pre>{context.title}</pre>
       <span>{store.items1.join(', ')}</span>
       <Component2/>
@@ -24,14 +18,8 @@ const Component = (props, context) => {
 }
 
 const Component2 = (props, context) => {
-  const beforeMount = () => {
-    return new Promise(resolve => setTimeout(() => {
-      store.items2 = [1, 2, 3]
-      resolve()
-    }, 200))
-  }
   return (
-    <div onBeforeMount={(beforeMount)} style={`color: ${store.color}`}>
+    <div style={`color: ${store.color}`}>
       <pre>{context.title}</pre>
       <span>{store.items2.join(', ')}</span>
     </div>
@@ -42,9 +30,12 @@ const Home = () => (
   <div>Home</div>
 )
 
-const About = () => (
+const About = (props, context) => (
   <div>
     <p>About</p>
+    <div>
+      {JSON.stringify(store.items2)}
+    </div>
     <hr/>
     <Link href='/about/inner'>Inner</Link>
     <Route path="/about/inner">
@@ -74,9 +65,18 @@ const App = (props, context) => {
     store.items1 = [4, 3, 2, 1]
   }
 
+  const beforeMount = () => {
+    return new Promise(resolve => setTimeout(() => {
+      store.items2 = [1, 2, 3]
+      resolve()
+    }, 1000))
+  }
+
   return (
     <div>
-      <div>
+      <About onBeforeMount={(beforeMount)} />
+
+      {/*<div>
         <Link href="/">root</Link>
         <Link href="/home">home</Link>
         <Link href="/about">about</Link>
@@ -86,7 +86,6 @@ const App = (props, context) => {
         <div>{context.router.routeParams.name}</div>
       </Route>
       <Route path="/about">
-        <About />
       </Route>
       <hr/>
       <h1>{context.router.url}</h1>
@@ -102,7 +101,7 @@ const App = (props, context) => {
             <li key={(item)}>{item}</li>
           )
         })}
-      </ul>
+      </ul>*/}
     </div>
   )
 }

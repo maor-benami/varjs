@@ -1,7 +1,6 @@
 import App from './app.js'
 
 export default function Home(props) {
-  console.log({ props })
   return (
     <html lang="en">
       <head>
