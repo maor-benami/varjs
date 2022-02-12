@@ -57,20 +57,23 @@ const App = (props, context) => {
     store.items2 = [1, 2, 3];
     resolve();
   }, 1000));
-  return [["<div", ">", "<h1", ">", "", "</h1>", "", "<hr", " />", "<button", ">", "MUTATE", "</button>", "<button", ">", "TOGGLE", "</button>", "<hr", " />", "<div", ">", "", "", "", "</div>", "<hr", " />", "<button", ">", "ADD", "</button>", "<button", ">", "REMOVE", "</button>", "<ul", ">", "", "</ul>", "</div>"], [[() => context.router.url, [0, 0, 0]], [Var.fc(About, {
+  return [["<div", ">", "<button", ">", "change title", "</button>", "", "<h1", " ", ">", "", "</h1>", "<div", ">", "", "", "", "</div>", "<button", ">", "CLICK", "</button>", "<hr", " />", "<button", ">", "MUTATE", "</button>", "<button", ">", "TOGGLE", "</button>", "<hr", " />", "<hr", " />", "<hr", " />", "<button", ">", "ADD", "</button>", "<button", ">", "REMOVE", "</button>", "<ul", ">", "", "</ul>", "</div>"], [[Var.fc(About, {
     "children": [],
     "beforeMount": beforeMount
-  }), [0, 1]], [Var.fc(Link, {
+  }), [0, 1]], [() => context.router.url, [0, 2, 0]], [Var.fc(Link, {
     "children": ["root"],
     "href": "/"
-  }), [0, 6, 0]], [Var.fc(Link, {
+  }), [0, 3, 0]], [Var.fc(Link, {
     "children": ["home"],
     "href": "/home"
-  }), [0, 6, 1]], [Var.fc(Link, {
+  }), [0, 3, 1]], [Var.fc(Link, {
     "children": ["about"],
     "href": "/about"
-  }), [0, 6, 2]], [() => store.items1.map(item => {
+  }), [0, 3, 2]], [() => store.items1.map(item => {
     return [["<li", " ", ">", "", "</li>"], [[() => item, [0, 0]]], [["key", item, [0]]], null];
-  }), [0, 10, 0]]], null, [["click", mutate, [0, 3]], ["click", toggle, [0, 4]], ["click", add, [0, 8]], ["click", remove, [0, 9]]]];
+  }), [0, 13, 0]]], [["style", () => `color: ${store.color}`, [0, 2]]], [["click", () => store.title = "new title", [0, 0]], ["click", () => {
+    console.log(123);
+    store.color = "blue";
+  }, [0, 4]], ["click", mutate, [0, 6]], ["click", toggle, [0, 7]], ["click", add, [0, 11]], ["click", remove, [0, 12]]]];
 };
 export default App;

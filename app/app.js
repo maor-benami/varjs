@@ -90,25 +90,35 @@ const App = (props, context) => {
   
   return (
     <div>
-      <h1>{context.router.url}</h1>
+      <button onClick={store.title = 'new title'}>change title</button>
       <About beforeMount={(beforeMount)} />
-      <hr/>
-      <button onClick={(mutate)}>MUTATE</button>
-      <button onClick={(toggle)}>TOGGLE</button>
-      <hr/>
+  
+      
+      <h1 style={`color: ${store.color}`}>{context.router.url}</h1>
+  
       <div>
         <Link href="/">root</Link>
         <Link href="/home">home</Link>
         <Link href="/about">about</Link>
       </div>
+      <button onClick={() => {
+        console.log(123)
+        store.color = 'blue'
+      }}>CLICK</button>
+      
+      <hr/>
+      <button onClick={(mutate)}>MUTATE</button>
+      <button onClick={(toggle)}>TOGGLE</button>
+      <hr/>
+      
       <hr />
       {/*<Route path="/:name">
         <div>{context.router.routeParams.name}</div>
       </Route>
       <Route path="/about">
       
-      </Route>
-      <hr/>*/}
+      </Route>*/}
+      <hr/>
       
       <button onClick={(add)}>ADD</button>
       <button onClick={(remove)}>REMOVE</button>
