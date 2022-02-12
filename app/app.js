@@ -83,20 +83,25 @@ const App = (props, context) => {
   }
   
   const beforeMount = () => new Promise(resolve => setTimeout(() => {
+    store.items1 = [1, 2, 3, 4]
     store.items2 = [1, 2, 3]
     resolve()
   }, 1000))
   
   return (
     <div>
-      <About beforeMount={(beforeMount)} />
       <h1>{context.router.url}</h1>
-  
+      <About beforeMount={(beforeMount)} />
+      <hr/>
+      <button onClick={(mutate)}>MUTATE</button>
+      <button onClick={(toggle)}>TOGGLE</button>
+      <hr/>
       <div>
         <Link href="/">root</Link>
         <Link href="/home">home</Link>
         <Link href="/about">about</Link>
       </div>
+      <hr />
       {/*<Route path="/:name">
         <div>{context.router.routeParams.name}</div>
       </Route>
@@ -104,10 +109,7 @@ const App = (props, context) => {
       
       </Route>
       <hr/>*/}
-      <hr/>
-      <button onClick={(mutate)}>MUTATE</button>
-      <button onClick={(toggle)}>TOGGLE</button>
-      <hr/>
+      
       <button onClick={(add)}>ADD</button>
       <button onClick={(remove)}>REMOVE</button>
       <ul>

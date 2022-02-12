@@ -53,23 +53,24 @@ const App = (props, context) => {
     store.items1 = [4, 3, 2, 1];
   }
   const beforeMount = () => new Promise(resolve => setTimeout(() => {
+    store.items1 = [1, 2, 3, 4];
     store.items2 = [1, 2, 3];
     resolve();
   }, 1000));
-  return [["<div", ">", "", "<h1", ">", "", "</h1>", "<div", ">", "", "", "", "</div>", "<hr", " />", "<button", ">", "MUTATE", "</button>", "<button", ">", "TOGGLE", "</button>", "<hr", " />", "<button", ">", "ADD", "</button>", "<button", ">", "REMOVE", "</button>", "<ul", ">", "", "</ul>", "</div>"], [[Var.fc(About, {
+  return [["<div", ">", "<h1", ">", "", "</h1>", "", "<hr", " />", "<button", ">", "MUTATE", "</button>", "<button", ">", "TOGGLE", "</button>", "<hr", " />", "<div", ">", "", "", "", "</div>", "<hr", " />", "<button", ">", "ADD", "</button>", "<button", ">", "REMOVE", "</button>", "<ul", ">", "", "</ul>", "</div>"], [[() => context.router.url, [0, 0, 0]], [Var.fc(About, {
     "children": [],
     "beforeMount": beforeMount
-  }), [0, 0]], [() => context.router.url, [0, 1, 0]], [Var.fc(Link, {
+  }), [0, 1]], [Var.fc(Link, {
     "children": ["root"],
     "href": "/"
-  }), [0, 2, 0]], [Var.fc(Link, {
+  }), [0, 6, 0]], [Var.fc(Link, {
     "children": ["home"],
     "href": "/home"
-  }), [0, 2, 1]], [Var.fc(Link, {
+  }), [0, 6, 1]], [Var.fc(Link, {
     "children": ["about"],
     "href": "/about"
-  }), [0, 2, 2]], [() => store.items1.map(item => {
+  }), [0, 6, 2]], [() => store.items1.map(item => {
     return [["<li", " ", ">", "", "</li>"], [[() => item, [0, 0]]], [["key", item, [0]]], null];
-  }), [0, 9, 0]]], null, [["click", mutate, [0, 4]], ["click", toggle, [0, 5]], ["click", add, [0, 7]], ["click", remove, [0, 8]]]];
+  }), [0, 10, 0]]], null, [["click", mutate, [0, 3]], ["click", toggle, [0, 4]], ["click", add, [0, 8]], ["click", remove, [0, 9]]]];
 };
 export default App;

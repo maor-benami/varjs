@@ -1,6 +1,6 @@
 # varjs
 
-isomorphic jsx framework
+> isomorphic jsx framework
 
 ## components
 
@@ -30,6 +30,16 @@ isomorphic jsx framework
 ```{x}``` -> ```{() => x}```
 - ^ can be escaped with round brackets:\
 ```{(x)}``` -> ```{x}```
+
+## helpers
+
+- [x] ```<Route />```
+- [x] ```<Link />```
+- [ ] ```<Form />```
+
+## docs
+
+> coming soon
 
 ## example
 
