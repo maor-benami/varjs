@@ -5,7 +5,6 @@ import FileMiddleware from '../lib/dev-server/middleware/file-middleware.js'
 import HtmlMiddleware from '../lib/dev-server/middleware/html-middleware.js'
 import SSRMiddleware from '../lib/dev-server/middleware/ssr-middleware.js'
 import jsxParser from '../lib/parser/parser.js'
-import config from '../config.js'
 
 new DevServer({
   port: 8000,
@@ -16,9 +15,7 @@ new DevServer({
       title: 'context',
       store
     })
-    FileMiddleware(req, res, {
-      compact: config.compact
-    })
+    FileMiddleware(req, res)
   },
 })
 
@@ -26,9 +23,7 @@ new DevServer({
   port: 8001,
   middleware: async function (req, res) {
     HtmlMiddleware(req, res, fs.readFileSync('server/index.html', 'utf8'))
-    FileMiddleware(req, res, {
-      compact: config.compact
-    })
+    FileMiddleware(req, res)
   },
 })
 
