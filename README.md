@@ -18,6 +18,7 @@ isomorphic jsx framework
 - [x] router
 - [ ] hydration
 - [ ] styled-components
+- [ ] error-boundaries
 - [ ] portals
 - [ ] fragments
 
