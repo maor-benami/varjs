@@ -11,10 +11,10 @@ new DevServer({
   port: 8000,
   middleware: async function (req, res) {
     const Module = (await (import('../dist/home.js'))).default
+    const store = (await (import('../dist/store.js'))).default
     SSRMiddleware(req, res, Module, {
-      title: 'context'
-    }, {
-      collectMounts: config.collectMounts
+      title: 'context',
+      store
     })
     FileMiddleware(req, res, {
       compact: config.compact

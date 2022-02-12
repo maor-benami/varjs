@@ -1,11 +1,11 @@
 import { batch } from '../lib/csr/oberverable.js'
 
-export function Link (props) {
+export function Link (props, context) {
   const onClick = (e) => {
     e.preventDefault()
 
-    if (props.href !== props.context.router.url) {
-      props.context.router.navigate(props.href)
+    if (props.href !== context.router.url) {
+      context.router.navigate(props.href)
     }
   }
 

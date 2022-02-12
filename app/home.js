@@ -1,6 +1,6 @@
 import App from './app.js'
 
-export default function Home(props) {
+export default function Home() {
   return (
     <html lang="en">
       <head>

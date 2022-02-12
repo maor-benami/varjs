@@ -1,13 +1,13 @@
 import { Link, Route } from './router.js'
-
-var store = {
-  flag: false,
-  color: 'red',
-  items1: [1, 2, 3, 4],
-  items2: [],
-}
+import store from './store.js'
 
 const Component = (props, context) => {
+  const afterMount = () => new Promise(resolve => setTimeout(() => {
+    store.items2 = [1, 2, 3]
+    console.log(store.items2)
+    resolve()
+  }, 1000))
+  
   return (
     <div>
       <pre>{context.title}</pre>
@@ -30,19 +30,35 @@ const Home = () => (
   <div>Home</div>
 )
 
-const About = (props, context) => (
-  <div>
-    <p>About</p>
-    <div>
-      {JSON.stringify(store.items2)}
-    </div>
-    <hr/>
-    <Link href='/about/inner'>Inner</Link>
-    <Route path="/about/inner">
-      Inner
-    </Route>
-  </div>
+const AboutInner = () => (
+  <div>Inner</div>
 )
+
+const About = (props, context) => {
+  const beforeMount = () => new Promise(resolve => setTimeout(() => {
+    store.items2 = [1, 2]
+    resolve()
+  }, 2000))
+  
+  const afterMount = () => new Promise(resolve => setTimeout(() => {
+    console.log('after')
+    resolve()
+  }, 1000))
+  
+  return (
+    <div afterMount={(afterMount)}>
+      <p>About</p>
+      <div>
+        {JSON.stringify(store.items2)}
+      </div>
+      <hr/>
+      <Link href="/about/inner">Inner</Link>
+      <Route path="/about/inner">
+        <AboutInner beforeMount={(beforeMount)}/>
+      </Route>
+    </div>
+  )
+}
 
 const App = (props, context) => {
   function add () {
@@ -60,48 +76,47 @@ const App = (props, context) => {
   function toggle () {
     store.flag = !store.flag
   }
+  
 
   function mutate () {
     store.items1 = [4, 3, 2, 1]
   }
-
-  const beforeMount = () => {
-    return new Promise(resolve => setTimeout(() => {
-      store.items2 = [1, 2, 3]
-      resolve()
-    }, 1000))
-  }
-
+  
+  const beforeMount = () => new Promise(resolve => setTimeout(() => {
+    store.items2 = [1, 2, 3]
+    resolve()
+  }, 1000))
+  
   return (
     <div>
-      <About onBeforeMount={(beforeMount)} />
-
-      {/*<div>
+      <About beforeMount={(beforeMount)} />
+      <h1>{context.router.url}</h1>
+  
+      <div>
         <Link href="/">root</Link>
         <Link href="/home">home</Link>
         <Link href="/about">about</Link>
       </div>
-      <hr/>
-      <Route path="/:name">
+      {/*<Route path="/:name">
         <div>{context.router.routeParams.name}</div>
       </Route>
       <Route path="/about">
+      
       </Route>
-      <hr/>
-      <h1>{context.router.url}</h1>
+      <hr/>*/}
       <hr/>
       <button onClick={(mutate)}>MUTATE</button>
-      <button onClick={toggle}>TOGGLE</button>
+      <button onClick={(toggle)}>TOGGLE</button>
       <hr/>
-      <button onClick={add}>ADD</button>
-      <button onClick={remove}>REMOVE</button>
+      <button onClick={(add)}>ADD</button>
+      <button onClick={(remove)}>REMOVE</button>
       <ul>
         {store.items1.map(item => {
           return (
             <li key={(item)}>{item}</li>
           )
         })}
-      </ul>*/}
+      </ul>
     </div>
   )
 }
