@@ -4,5 +4,5 @@ import Home from './home.js'
 import store from './store.js'
 import createRouter from '../lib/csr/actions/createRouter.js'
 
-hydrate((window) => <Home
+hydrate(() => <Home
   context={{ title: 'context', store, router: createRouter(window) }}/>)

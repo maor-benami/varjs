@@ -7,7 +7,7 @@ const Component = (props, context) => {
     console.log(store.items2)
     resolve()
   }, 1000))
-  
+
   return (
     <div>
       <pre>{context.title}</pre>
@@ -39,17 +39,19 @@ const About = (props, context) => {
     store.items2 = [1, 2]
     resolve()
   }, 2000))
-  
-  const afterMount = () => new Promise(resolve => setTimeout(() => {
-    console.log('after')
+
+  const afterMount = (el) => new Promise(resolve => setTimeout(() => {
     resolve()
   }, 1000))
-  
+
   return (
     <div afterMount={(afterMount)}>
       <p>About</p>
       <div>
         {JSON.stringify(store.items2)}
+      </div>
+      <div>
+        {JSON.stringify(store.items1)}
       </div>
       <hr/>
       <Link href="/about/inner">Inner</Link>
@@ -76,50 +78,48 @@ const App = (props, context) => {
   function toggle () {
     store.flag = !store.flag
   }
-  
 
   function mutate () {
     store.items1 = [4, 3, 2, 1]
   }
-  
+
   const beforeMount = () => new Promise(resolve => setTimeout(() => {
     store.items1 = [1, 2, 3, 4]
     store.items2 = [1, 2, 3]
     resolve()
   }, 1000))
-  
+
   return (
     <div>
-      <button onClick={store.title = 'new title'}>change title</button>
-      <About beforeMount={(beforeMount)} />
-  
-      
+      <button onClick={() => store.title = 'new title'}>change title</button>
+      <About beforeMount={(beforeMount)}/>
+
       <h1 style={`color: ${store.color}`}>{context.router.url}</h1>
-  
+
       <div>
         <Link href="/">root</Link>
         <Link href="/home">home</Link>
         <Link href="/about">about</Link>
       </div>
       <button onClick={() => {
-        console.log(123)
-        store.color = 'blue'
-      }}>CLICK</button>
-      
+        store.color = store.color === 'red' ? 'blue' : 'red'
+      }}>CLICK
+      </button>
+
       <hr/>
       <button onClick={(mutate)}>MUTATE</button>
       <button onClick={(toggle)}>TOGGLE</button>
       <hr/>
-      
-      <hr />
-      {/*<Route path="/:name">
+
+      <hr/>
+      <Route path="/:name">
         <div>{context.router.routeParams.name}</div>
       </Route>
       <Route path="/about">
-      
-      </Route>*/}
+
+      </Route>
       <hr/>
-      
+
       <button onClick={(add)}>ADD</button>
       <button onClick={(remove)}>REMOVE</button>
       <ul>

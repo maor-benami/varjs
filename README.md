@@ -16,8 +16,9 @@
 - [x] ssr
 - [x] map
 - [x] router
-- [ ] hydration
+- [x] hydration
 - [ ] styled-components
+- [ ] svg
 - [ ] error-boundaries
 - [ ] portals
 - [ ] fragments
