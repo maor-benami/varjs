@@ -17,9 +17,8 @@
 - [x] map
 - [x] router
 - [x] hydration
-- [ ] styled-components
-- [ ] svg
 - [ ] error-boundaries
+- [ ] svg
 - [ ] portals
 - [ ] fragments
 

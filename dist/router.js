@@ -4,7 +4,9 @@ export function Link(props, context) {
     e.preventDefault();
     let callback = () => {
       context.router.navigate(props.href);
-      props.afterRoute();
+      if (props?.afterRoute) {
+        props.afterRoute();
+      }
     };
     if (props.href !== context.router.url) {
       if (props.beforeRoute) {
@@ -12,8 +14,8 @@ export function Link(props, context) {
         if (result?.then) {
           return result.then(callback);
         }
-        callback();
       }
+      callback();
     }
   };
   return [["<a", " ", ">", "", "</a>"], [[props.children, [0, 0]]], [["href", () => props.href, [0]]], [["click", onClick, [0]]]];
@@ -26,20 +28,19 @@ function collectParam(routeChunk, routerChunk, params, routeParams) {
     });
   }
 }
-function inRoute({path}, context) {
-  console.log(context.router.pathname, path);
-  let routerPath = context.router.pathname.split("/").slice(1);
+function inRoute({path}, {router}) {
+  let routerPath = router.pathname.split("/").slice(1);
   let routePath = path.split("/").slice(1);
   let length = Math.max(routerPath.length, routePath.length);
   let result = true;
   let params = [() => {
-    context.router.params = [];
+    router.params = [];
   }];
   for (let i = 0; i < length; i++) {
     let routerChunk = routerPath[i];
     let routeChunk = routePath[i];
     if (routeChunk?.startsWith(":")) {
-      collectParam(routeChunk, routerChunk, params, context.router.routeParams);
+      collectParam(routeChunk, routerChunk, params, router.routeParams);
     } else {
       if (routeChunk != null) {
         if (routerChunk !== routeChunk) {
@@ -55,7 +56,7 @@ function inRoute({path}, context) {
 export function Route(props, context) {
   return () => {
     if (inRoute(props, context)) {
-      return [["<div", " ", ">", "", "</div>"], [[props.children, [0, 0]]], [["key", () => props.path, [0]]], null];
+      return [["<div", " ", ">", "", "</div>"], [[props.children, [0, 0]]], [["key", () => props.index, [0]]], null];
     }
   };
 }

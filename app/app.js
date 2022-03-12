@@ -34,34 +34,6 @@ const AboutInner = () => (
   <div>Inner</div>
 )
 
-const About = (props, context) => {
-  const beforeMount = () => new Promise(resolve => setTimeout(() => {
-    store.items2 = [1, 2]
-    resolve()
-  }, 2000))
-
-  const afterMount = (el) => new Promise(resolve => setTimeout(() => {
-    resolve()
-  }, 1000))
-
-  return (
-    <div afterMount={(afterMount)}>
-      <p>About</p>
-      <div>
-        {JSON.stringify(store.items2)}
-      </div>
-      <div>
-        {JSON.stringify(store.items1)}
-      </div>
-      <hr/>
-      <Link href="/about/inner">Inner</Link>
-      <Route path="/about/inner">
-        <AboutInner beforeMount={(beforeMount)}/>
-      </Route>
-    </div>
-  )
-}
-
 const App = (props, context) => {
   function add () {
     store.color = store.color === 'red' ? 'blue' : 'red'
@@ -83,16 +55,12 @@ const App = (props, context) => {
     store.items1 = [4, 3, 2, 1]
   }
 
-  const beforeMount = () => new Promise(resolve => setTimeout(() => {
-    store.items1 = [1, 2, 3, 4]
-    store.items2 = [1, 2, 3]
-    resolve()
-  }, 1000))
-
   return (
     <div>
+      <button onClick={(toggle)}>TOGGLE</button>
+      <hr/>
+      <div>{1}{store.flag && 2}{3}</div>
       <button onClick={() => store.title = 'new title'}>change title</button>
-      <About beforeMount={(beforeMount)}/>
 
       <h1 style={`color: ${store.color}`}>{context.router.url}</h1>
 
@@ -108,16 +76,14 @@ const App = (props, context) => {
 
       <hr/>
       <button onClick={(mutate)}>MUTATE</button>
-      <button onClick={(toggle)}>TOGGLE</button>
-      <hr/>
 
       <hr/>
       <Route path="/:name">
         <div>{context.router.routeParams.name}</div>
       </Route>
-      <Route path="/about">
+      {/*<Route path="/about">
 
-      </Route>
+      </Route>*/}
       <hr/>
 
       <button onClick={(add)}>ADD</button>

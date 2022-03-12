@@ -2,7 +2,7 @@ var store = {
   flag: false,
   color: 'red',
   title: 'title',
-  items1: [],
+  items1: [1,2,3],
   items2: [],
   getItems: async function () {
     return new Promise(resolve => {

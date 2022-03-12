@@ -21,7 +21,7 @@ function newConnection() {
     };
 
     webSocket.onclose = onClose;
-  }, 100);
+  }, 1500);
 }
 
 webSocket.onclose = onClose;
