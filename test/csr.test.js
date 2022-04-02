@@ -9,16 +9,17 @@ test('div', async () => {
   const input = `export const App = () => <div></div>`
   const output = parser(input)
   const file = 'dist/csr-div.js'
-  
+
   fs.writeFileSync(file, output, 'utf8')
-  
-  const { App } = (await import('../' + file))
-  
+
+  const { App } = await import('../' + file)
+
   csr(App(), document.body)
-  
-  expect(DOM.serialize()).toEqual(`<html><head></head><body><div></div></body></html>`)
+
+  expect(DOM.serialize()).toEqual(
+    `<html><head></head><body><div></div></body></html>`,
+  )
   fs.rmSync(file)
-  
 })
 
 test('hr', async () => {
@@ -27,13 +28,15 @@ test('hr', async () => {
   const input = `export const App = () => <hr />`
   const output = parser(input)
   const file = 'dist/csr-hr.js'
-  
+
   fs.writeFileSync(file, output, 'utf8')
-  
-  const { App } = (await import('../' + file))
-  
+
+  const { App } = await import('../' + file)
+
   csr(App(), document.body)
-  
-  expect(DOM.serialize()).toEqual(`<html><head></head><body><hr></body></html>`)
+
+  expect(DOM.serialize()).toEqual(
+    `<html><head></head><body><hr></body></html>`,
+  )
   fs.rmSync(file)
 })

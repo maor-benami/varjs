@@ -9,11 +9,11 @@ import jsxParser from '../lib/parser/parser.js'
 new DevServer({
   port: 8000,
   middleware: async function (req, res) {
-    const Module = (await (import('../dist/home.js'))).default
-    const store = (await (import('../dist/store.js'))).default
+    const Module = (await import('../dist/home.js')).default
+    const store = (await import('../dist/store.js')).default
     SSRMiddleware(req, res, Module, {
       title: 'context',
-      store
+      store,
     })
     FileMiddleware(req, res)
   },
@@ -31,11 +31,7 @@ new FileWatcher({
   dir: 'app',
   callback: (event, { file, ext, body }) => {
     if (ext === 'js') {
-      fs.writeFileSync(
-        path.resolve('dist', file),
-        jsxParser(body),
-        'utf8',
-      )
+      fs.writeFileSync(path.resolve('dist', file), jsxParser(body), 'utf8')
     }
   },
 })

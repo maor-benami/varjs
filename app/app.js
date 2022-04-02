@@ -1,4 +1,4 @@
-import { Link, Route } from './router.js'
+/*import { Link, Route } from './router.js'
 import store from './store.js'
 
 const Component = (props, context) => {
@@ -81,9 +81,9 @@ const App = (props, context) => {
       <Route path="/:name">
         <div>{context.router.routeParams.name}</div>
       </Route>
-      {/*<Route path="/about">
+      {/!*<Route path="/about">
 
-      </Route>*/}
+      </Route>*!/}
       <hr/>
 
       <button onClick={(add)}>ADD</button>
@@ -97,6 +97,18 @@ const App = (props, context) => {
       </ul>
     </div>
   )
+}*/
+
+function Component(props) {
+  return <Component2 {...props}>123</Component2>
+}
+
+function Component2(props) {
+  return <div {...props}>123</div>
+}
+
+function App() {
+  return <Component style="color: red" onClick={() => console.log(77)} />
 }
 
 export default App

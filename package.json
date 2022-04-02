@@ -19,12 +19,25 @@
   },
   "homepage": "https://github.com/maor-benami/varjs#readme",
   "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.162",
     "@types/jest": "^27.4.0",
     "astring": "^1.8.1",
     "html-minifier": "^4.0.0",
     "jest": "^27.4.7",
     "jsdom": "^19.0.0",
     "meriyah": "^4.2.0",
+    "prettier": "^2.6.1",
+    "ts-node": "^10.7.0",
     "ws": "^8.4.2"
+  },
+  "prettier": {
+    "printWidth": 77,
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "bracketSameLine": false
   }
 }
